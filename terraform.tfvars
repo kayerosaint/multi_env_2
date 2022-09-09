@@ -1,0 +1,9 @@
+region              = "eu-west-3"
+image               = "kayerosaint/multi_env:latest"
+instance_ami        = "ami-0ca82f640eae28513"
+instance_user       = "core"
+env                 = "staging"
+vpc_cidr_blocks     = "10.0.0.0/16"
+private_subnets     = ["10.0.11.0/24", "10.0.11.0/24"]
+public_subnet_cidrs = ["10.0.8.0/24", "10.0.10.0/24"]
+availability_zones  = ["eu-west-3a", "eu-west-3b"]
