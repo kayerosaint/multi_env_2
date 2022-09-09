@@ -19,13 +19,17 @@ variable "instance_user" {
 }
 
 variable "env" {
-  description = "environment"
+  description = "development"
   type        = string
 }
 
 variable "availability_zones" {
   description = "List of availability zones"
   type        = list(string)
+  default = [
+    "eu-west-3a",
+    "eu-west-3b"
+  ]
 }
 
 variable "public_subnet_cidrs" {
@@ -46,4 +50,19 @@ variable "private_subnets" {
 variable "vpc_cidr_blocks" {
   description = "List of private subnets"
   type        = string
+}
+
+variable "container_port" {
+  default = "4000"
+  type    = string
+}
+
+variable "project" {
+  description = "project name"
+  default     = "PACMAN-XXX"
+  type        = string
+}
+
+variable "vpc_id" {
+  default = "dev"
 }
