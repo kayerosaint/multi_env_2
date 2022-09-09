@@ -25,5 +25,10 @@ variable "private_subnets" {
   default = [
     "10.0.11.0/24",
     "10.0.12.0/24",
+    "10.0.13.0/24"
   ]
 }
+
+variable "vpc_cidr_blocks" {}
+
+variable "availability_zones" {}

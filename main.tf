@@ -1,7 +1,11 @@
 
 module "networking" {
-  source = "./modules/networking"
-  env    = "development"
+  source              = "./modules/networking"
+  env                 = "development"
+  availability_zones  = var.availability_zones
+  private_subnets     = var.private_subnets
+  public_subnet_cidrs = var.public_subnet_cidrs
+  vpc_cidr_blocks     = var.vpc_cidr_blocks
 }
 
 module "instance" {
@@ -22,11 +26,18 @@ module "instance" {
   #==>>++just_for_tests++<<==
 }
 
+module "security_groups" {
+  source         = "./modules/security_groups"
+  project        = "${var.project}-${var.env}"
+  vpc_id         = module.networking.vpc_id
+  container_port = var.container_port
+}
+
 module "ssh" {
   source = "./modules/ssh"
   env    = var.env
 }
-/*
+
 #==========================2nd phase install=================================#
 module "application" {
   source = "./modules/application"
@@ -34,4 +45,3 @@ module "application" {
   host   = "ssh://${var.instance_user}@${module.instance.my_static_ips[0]}:22"
 }
 #==========================2nd phase install=================================#
-*/

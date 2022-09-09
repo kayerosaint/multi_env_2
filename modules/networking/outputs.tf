@@ -20,6 +20,9 @@ output "private_subnets" {
   value = aws_subnet.private
 }
 
+output "aws_availability_zones" {
+  value = try(data.aws_availability_zones.available[*].id, "")
+}
 
 #===========test outputs, not nessesary use them inside module=============#
 
