@@ -8,6 +8,16 @@ variable "image" {
   type        = string
 }
 
+variable "task_cpu" {
+  description = "cpu usage"
+  type        = string
+}
+
+variable "task_memory" {
+  description = "memory usage"
+  type        = string
+}
+
 variable "instance_ami" {
   description = "AWS AMI"
   type        = string
@@ -32,19 +42,14 @@ variable "availability_zones" {
   ]
 }
 
-variable "public_subnet_cidrs" {
-  description = "List of public subnets"
-  type        = list(string)
-  default = [
-    "10.0.8.0/24",
-    "10.0.9.0/24",
-    "10.0.10.0/24",
-  ]
-}
-
 variable "private_subnets" {
   description = "List of private subnets"
   type        = list(string)
+  default = [
+    "10.0.11.0/24",
+    "10.0.12.0/24",
+    "10.0.13.0/24"
+  ]
 }
 
 variable "vpc_cidr_blocks" {
@@ -65,4 +70,16 @@ variable "project" {
 
 variable "vpc_id" {
   default = "dev"
+}
+
+variable "public_subnets" {
+  description = "List of public subnets"
+  type        = list(string)
+  default = [
+    "10.0.8.0/24",
+    "10.0.9.0/24",
+    "10.0.10.0/24",
+    "10.0.15.0/24",
+    "10.0.16.0/24"
+  ]
 }

@@ -4,7 +4,7 @@ data "aws_vpc" "dev_vpc" {
   }
 }
 
-resource "aws_security_group" "alb" {
+resource "aws_security_group" "alb_sg" {
   name   = "${var.env}-sg-alb"
   vpc_id = data.aws_vpc.dev_vpc.id
   tags = {

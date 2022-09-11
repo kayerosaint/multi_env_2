@@ -48,9 +48,9 @@ resource "aws_security_group" "my_webserver" {
 #==================Create Subnet=======================#
 
 resource "aws_subnet" "public_subnets" {
-  count                   = length(var.public_subnet_cidrs)
+  count                   = length(var.public_subnets)
   vpc_id                  = data.aws_vpc.dev_vpc.id
-  cidr_block              = element(var.public_subnet_cidrs, count.index)
+  cidr_block              = element(var.public_subnets, count.index)
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
   tags = {
@@ -78,7 +78,7 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_route_table" "public_subnets" {
-  count  = length(var.public_subnet_cidrs)
+  count  = length(var.public_subnets)
   vpc_id = data.aws_vpc.dev_vpc.id
   route {
     cidr_block = "0.0.0.0/0"

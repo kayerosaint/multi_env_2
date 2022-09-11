@@ -20,6 +20,10 @@ output "private_subnets" {
   value = aws_subnet.private
 }
 
+output "public_subnets" {
+  value = aws_subnet.public_subnets
+}
+
 output "aws_availability_zones" {
   value = try(data.aws_availability_zones.available[*].id, "")
 }
@@ -38,3 +42,7 @@ output "aws_route_table_association" {
   value = aws_route_table_association.public_routes[*].id
 }
 #===========test outputs, not nessesary use them inside module=============#
+
+output "public_subnet_cidrs" {
+  value = aws_subnet.public_subnets[*].cidr_block
+}

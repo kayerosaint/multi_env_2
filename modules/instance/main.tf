@@ -2,7 +2,7 @@
 #===================Elastic-IP=============================#
 
 resource "aws_eip" "eip" {
-  count = length(var.public_subnet_cidrs)
+  count = length(var.public_subnets)
   vpc   = true
   tags = {
     Name = "${var.env}-gw-${count.index + 1}"
@@ -27,7 +27,6 @@ data "ct_config" "config" {
 
 #=====================instance=============================#
 
-
 resource "aws_instance" "app_server" {
   ami                    = var.instance_ami
   instance_type          = "t2.micro"
@@ -36,6 +35,6 @@ resource "aws_instance" "app_server" {
   count                  = length(var.public_subnet_ids)
   subnet_id              = element(var.public_subnet_ids, count.index)
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }

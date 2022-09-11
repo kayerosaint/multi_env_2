@@ -17,16 +17,18 @@ variable "user" {
 variable "env" {
   default = "development"
 }
-
+/*
 variable "public_subnet_cidrs" {
   description = "List of private subnets"
   type        = list(string)
 }
-
+*/
 variable "webserver_sg_id" {
   description = "EC2 security group id"
   type        = string
 }
+
+variable "public_subnets" {}
 
 variable "public_subnet_ids" {}
 
