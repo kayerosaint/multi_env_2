@@ -6,7 +6,7 @@ locals {
 inputs = {
   region      = local.common.inputs.region
   project     = local.common.inputs.project
-  environment = local.workspace
+  env         = local.workspace
 }
 
 remote_state = local.common.remote_state
