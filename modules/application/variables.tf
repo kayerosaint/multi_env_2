@@ -44,11 +44,22 @@ variable "container_port" {
 }
 
 
-#=============ALB==============#
+#================ALB=================#
 variable "alb_sg" {}
 
 variable "vpc_id" {}
 
 variable "public_subnets" {}
 
+#=============ECS Services===========#
+
+variable "private_subnets" {}
+
 variable "ecs_tasks" {}
+
+#==============LOGS===================#
+
+variable "region" {
+  description = "aws region"
+  type        = string
+}

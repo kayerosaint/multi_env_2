@@ -68,10 +68,17 @@ module "task_definition" {
           hostPort      = var.container_port
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = module.logs.name
+          awslogs-region        = var.region
+          awslogs-stream-prefix = local.app_name
+        }
+      }
     }
   ]
 }
-
 #==================Application Load Balancer=======================#
 data "aws_vpc" "dev_vpc" {
   tags = {
@@ -88,4 +95,33 @@ module "alb" {
   public_subnets    = var.public_subnets
   vpc_id            = data.aws_vpc.dev_vpc.id
   health_check_path = "/health_check"
+}
+
+#===========================ECS SERVISE=============================#
+
+module "service" {
+  source                   = "../ecs_service"
+  project                  = var.project
+  env                      = var.env
+  cluster_id               = module.cluster.id
+  task_definition_arn      = module.task_definition.arn
+  desired_count            = 2
+  min_percent              = 50
+  max_percent              = 300
+  launch_type              = "FARGATE"
+  scheduling_strategy      = "REPLICA"
+  ecs_tasks                = var.ecs_tasks
+  private_subnets          = var.private_subnets
+  aws_alb_target_group_arn = module.alb.tg_arn
+  container_port           = var.container_port
+  container_name           = local.app_name
+}
+
+#===========================LOGS======================================#
+
+module "logs" {
+  source            = "../cloudwatch"
+  env               = var.env
+  project           = var.project
+  retention_in_days = 90
 }

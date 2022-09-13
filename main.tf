@@ -42,16 +42,18 @@ module "ssh" {
 module "application" {
   source = "./modules/application"
   #>>>+++ECS+++<<<#
-  project        = var.project
-  env            = var.env
-  task_cpu       = var.task_cpu
-  task_memory    = var.task_memory
-  image          = var.image
-  container_port = var.container_port
-  vpc_id         = module.networking.vpc_id
-  public_subnets = module.networking.public_subnets
-  ecs_tasks      = [module.security_groups.ecs_tasks]
-  alb_sg         = [module.security_groups.alb_sg]
+  project         = var.project
+  env             = var.env
+  task_cpu        = var.task_cpu
+  task_memory     = var.task_memory
+  image           = var.image
+  container_port  = var.container_port
+  region          = var.region
+  vpc_id          = module.networking.vpc_id
+  public_subnets  = module.networking.public_subnets
+  private_subnets = module.networking.private_subnets
+  ecs_tasks       = [module.security_groups.ecs_tasks]
+  alb_sg          = [module.security_groups.alb_sg]
   #>>>+++ECS+++<<<#
   #==========================local docker====================================#
   #image = var.image
